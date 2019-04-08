@@ -60,14 +60,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_MODIFY_DOMAIN . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, $data, true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -152,13 +149,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_SET_WEB_VIEW_DOMAIN . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, $data, true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -241,15 +236,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_WXA_SEARCH_STATUS . $this->authorizer_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -271,19 +263,16 @@ class Program
     public function changeWxaSearchStatus($status)
     {
         if (!in_array($status, [0, 1]))
-            exception('status error !', ABNORMAL);
+            throw new \Exception('status error !', $this->errCode);
 
         $url = ApiList::API_URL_PREFIX . ApiList::API_CHANGE_WXA_SEARCH_STATUS . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, ['status' => $status], true);//1表示不可搜索，0表示可搜索
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -307,14 +296,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_AUTH . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, ['action' => 'get_experiencer'], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -340,14 +326,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_BIND_TESTER . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, ['wechatid' => $wechat_id], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -367,14 +350,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_UNBIND_TESTER . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, $data, true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -394,16 +374,15 @@ class Program
      */
     public function getTemplateDraftList()
     {
-        $url = ApiList::API_URL_PREFIX . ApiList::API_GET_TEMPLATE_DRAFT_LIST . ApiList::$component_access_token;
+        $url = ApiList::API_URL_PREFIX . ApiList::API_GET_TEMPLATE_DRAFT_LIST . self::$component_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tcomponent_access_token=" . ApiList::$component_access_token . "\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+
         return $r_json;
     }
 
@@ -422,17 +401,14 @@ class Program
      */
     public function getTemplateList()
     {
-        $url = ApiList::API_URL_PREFIX . ApiList::API_GET_TEMPLATE_LIST . ApiList::$component_access_token;
+        $url = ApiList::API_URL_PREFIX . ApiList::API_GET_TEMPLATE_LIST . self::$component_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tcomponent_access_token=" . ApiList::$component_access_token . "\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -451,16 +427,15 @@ class Program
      */
     public function addToTemplate($draft_id)
     {
-        $url = ApiList::API_URL_PREFIX . ApiList::API_ADD_TO_TEMPLATE . ApiList::$component_access_token;
+        $url = ApiList::API_URL_PREFIX . ApiList::API_ADD_TO_TEMPLATE . self::$component_access_token;
 
         $r = Http::httpPost($url, ['draft_id' => $draft_id], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tcomponent_access_token=" . ApiList::$component_access_token . "\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            return array($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+
         return $r_json;
     }
 
@@ -476,13 +451,14 @@ class Program
      */
     public function deleteTemplate($template_id)
     {
-        $url = ApiList::API_URL_PREFIX . ApiList::API_DELETE_TEMPLATE . ApiList::$component_access_token;
+        $url = ApiList::API_URL_PREFIX . ApiList::API_DELETE_TEMPLATE . self::$component_access_token;
         $r = Http::httpPost($url, ['template_id' => $template_id], true);
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            return array($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+
         return $r_json;
     }
 
@@ -515,14 +491,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_COMMIT . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, $data, true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -550,12 +523,10 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_QRCODE . $this->authorizer_access_token . '&path=' . urlencode($path);
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
         $r_json = json_decode($r, true);
-        if ($r && $r_json && isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if ($r && $r_json && isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r;
     }
@@ -581,15 +552,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_CATEGORY . $this->authorizer_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -610,15 +578,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_PAGE . $this->authorizer_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -668,14 +633,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_SUBMIT_AUDIT . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, $data, true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -704,14 +666,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_AUDIT_STATUS . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, ['auditid' => $audit_id], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -737,15 +696,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_LATEST_AUDIT_STATUS . $this->authorizer_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -765,14 +721,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_RELEASE . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, '{}');
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -797,14 +750,11 @@ class Program
         $url = ApiList::API_URL_PREFIX . ApiList::API_CHANGE_VISIT_STATUS . $this->authorizer_access_token;
 
         $r = Http::httpPost($url, ['action' => $access_status], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -825,15 +775,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_REVERT_CODE_RELEASE . $this->authorizer_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -854,15 +801,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_UNDO_CODE_AUDIT . $this->authorizer_access_token;
 
-        $r = $this->httpGet($url);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
+        $r = Http::httpGet($url);
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -885,14 +829,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_BINDTEST . $this->authorizer_access_token;
         $r = Http::httpPost($url, ['wechatid' => $wechatid], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            return array($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+
         return $r_json;
     }
 
@@ -914,13 +856,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_UNBINDTEST . $this->authorizer_access_token;
         $r = Http::httpPost($url, ['userstr' => $user_str], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            return array($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+
         return $r_json;
     }
 
@@ -942,13 +883,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_UNBINDTEST . $this->authorizer_access_token;
         $r = Http::httpPost($url, ['userstr' => $userstr], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            return array($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+
         return $r_json;
     }
 
@@ -970,198 +910,11 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_LISTMEMBER . $this->authorizer_access_token;
         $r = Http::httpPost($url, ['action' => 'get_experiencer'], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
 
-        if (!$r)
-            exception('get request send fail !', ABNORMAL);
-        $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            return array($r_json['errmsg'], $r_json['errcode']);
-        return $r_json;
-    }
-
-    /**
-     * 创建 开放平台帐号并绑定公众号/小程序
-     *
-     * 该API用于创建一个开放平台帐号，并将一个尚未绑定开放平台帐号的公众号或小程序绑定至该开放平台帐号上。
-     * 新创建的开放平台帐号的主体信息将设置为与之绑定的公众号或小程序的主体。
-     *
-     * 返回结果示例
-     *     {
-     *     "open_appid":"appid_value",
-     *     "errcode":0,
-     *     "errmsg":"ok"
-     *     }
-     *     结果参数说明
-     *     参数    说明
-     *     open _appid    所创建的开放平台帐号 的appid
-     *     errcode    错误码
-     *     errmsg    错误信息
-     *     返回码 说明
-     *     返回码    说明
-     *     0    ok
-     *     -1    system error ， 系统错误
-     *     40013    invalid appid ， appid 无效。
-     *     89000    account has bound open ，该公众号 / 小程序 已经绑定了开放平台帐号
-     *
-     * @param $auth_appid 授权公众号或小程序的appid
-     *
-     * @return mixed
-     * @throws \Exception
-     */
-    public function createOpen($auth_appid)
-    {
-
-        $url = ApiList::API_URL_PREFIX . self::API_OPEN_CREATE . $this->authorizer_access_token;
-
-        $r = Http::httpPost($url, ['appid' => $auth_appid], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
-
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
+        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
-
-        return $r_json;
-    }
-
-    /**
-     * 将 公众号/小程序绑定到开放平台帐号下
-     *
-     * 该API用于将一个尚未绑定开放平台帐号的公众号或小程序绑定至指定开放平台帐号上。二者须主体相同。
-     *
-     * 返回结果示例
-     *     {
-     *     "errcode":0,
-     *     "errmsg":"ok"
-     *     }
-     *     结果参数说明
-     *     参数    说明
-     *     errcode    错误码
-     *     errmsg    错误信息
-     *     返回码说明
-     *     返回码    说明
-     *     0    ok
-     *     -1    system error，系统错误
-     *     40013    invalid appid，appid或open_appid无效。
-     *     89000    account has bound open，该公众号/小程序已经绑定了开放平台帐号
-     *     89001    not same contractor，Authorizer与开放平台帐号主体不相同
-     *     89003    该开放平台帐号并非通过api创建，不允许操作
-     *     89004    该开放平台帐号所绑定的公众号/小程序已达上限（100个）
-     *
-     * @param $auth_appid 授权公众号或小程序的appid
-     * @param $open_appid 开放平台帐号appid
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function bindOpen($auth_appid, $open_appid)
-    {
-
-        $url = self::API_URL_PREFIX . self::API_OPEN_BIND . $this->authorizer_access_token;
-
-        $r = Http::httpPost($url, ['appid' => $auth_appid, 'open_appid' => $open_appid], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
-
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
-
-        $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
-
-        return true;
-    }
-
-    /**
-     * 将公众号/小程序从开放平台帐号下解绑
-     *
-     * 该API用于将一个公众号或小程序与指定开放平台帐号解绑。开发者须确认所指定帐号与当前该公众号或小程序所绑定的开放平台帐号一致。
-     *
-     * 返回结果示例
-     *     {
-     *     "errcode":0,
-     *     "errmsg":"ok"
-     *     }
-     *     结果参数说明
-     *     参数    说明
-     *     errcode    错误码
-     *     errmsg    错误信息
-     *     返回码说明
-     *     返回码    说明
-     *     0    ok
-     *     -1    system error，系统错误
-     *     40013    invalid appid，appid或open_appid无效。
-     *     89001    not same contractor，Authorizer与开放平台帐号主体不相同
-     *     89003    该开放平台帐号并非通过api创建，不允许操作
-     *
-     * @param $auth_appid 授权公众号或小程序的appid
-     * @param $open_appid 开放平台帐号appid
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function unbindOpen($auth_appid, $open_appid)
-    {
-
-        $url = self::API_URL_PREFIX . self::API_OPEN_UNBIND . $this->authorizer_access_token;
-
-        $r = Http::httpPost($url, ['appid' => $auth_appid, 'open_appid' => $open_appid], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
-
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
-
-        $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
-
-        return true;
-    }
-
-    /**
-     * 获取公众号/小程序所绑定的开放平台帐号
-     *
-     *该API用于获取公众号或小程序所绑定的开放平台帐号。
-     *
-     * 返回结果示例
-     *     {
-     *     "errcode":0,
-     *     "errmsg":"ok"
-     *     "open_appid":"appid_value",//公众号或小程序所绑定的开放平台帐号的appid
-     *     }
-     *     结果参数说明
-     *     参数    说明
-     *     errcode    错误码
-     *     errmsg    错误信息
-     *     返回码说明
-     *     返回码    说明
-     *     0    ok
-     *     -1    system error，系统错误
-     *     40013    invalid appid，appid或open_appid无效。
-     *     89002    open not exists，该公众号/小程序未绑定微信开放平台帐号。
-     *
-     * @param $auth_appid 授权公众号或小程序的appid
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function getOpen($auth_appid)
-    {
-
-        $url = self::API_URL_PREFIX . self::API_OPEN_GET . $this->authorizer_access_token;
-
-        $r = Http::httpPost($url, ['appid' => $auth_appid,], true);
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\tauthorizer_access_token={$this->authorizer_access_token}\tresult={$r}");
-
-        if (!$r)
-            exception('post request send fail !', ABNORMAL);
-
-        $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode'])
-            exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
