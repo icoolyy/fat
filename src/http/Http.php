@@ -1,8 +1,6 @@
 <?php
 
-
 namespace fat\http;
-
 
 class Http
 {
@@ -13,7 +11,7 @@ class Http
      *
      * @return bool|mixed
      */
-    public function httpGet($url)
+    public static function get($url)
     {
         $oCurl = curl_init();
         if (stripos($url, "https://") !== FALSE) {
@@ -41,7 +39,7 @@ class Http
      *
      * @return string content
      */
-    public function httpPost($url, $param, $post_json = false)
+    public static function post($url, $param, $post_json = false)
     {
         $oCurl = curl_init();
         if (stripos($url, "https://") !== FALSE) {
@@ -64,7 +62,6 @@ class Http
                 $strPOST = join("&", $aPOST);
             }
         }
-        log_w(__CLASS__ . "\t" . __FUNCTION__ . "\turl={$url}\tparam={$strPOST}");
 
         curl_setopt($oCurl, CURLOPT_URL, $url);
         curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
@@ -79,5 +76,4 @@ class Http
             return false;
         }
     }
-
 }

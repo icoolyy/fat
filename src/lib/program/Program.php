@@ -7,6 +7,7 @@ namespace fat\program;
 
 use fat\http\Http;
 use fat\lib\ApiList;
+use fat\lib\Helper;
 
 class Program
 {
@@ -59,12 +60,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MODIFY_DOMAIN . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, $data, true);
+        $r = Http::post($url, $data, true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -148,12 +149,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_SET_WEB_VIEW_DOMAIN . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, $data, true);
+        $r = Http::post($url, $data, true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -236,12 +237,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_WXA_SEARCH_STATUS . $this->authorizer_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -262,17 +263,16 @@ class Program
      */
     public function changeWxaSearchStatus($status)
     {
-        if (!in_array($status, [0, 1]))
-            throw new \Exception('status error !', $this->errCode);
+        if (!in_array($status, [0, 1]))  Helper::throwAbnormal('status error', $this->errCode);
 
         $url = ApiList::API_URL_PREFIX . ApiList::API_CHANGE_WXA_SEARCH_STATUS . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['status' => $status], true);//1表示不可搜索，0表示可搜索
+        $r = Http::post($url, ['status' => $status], true);//1表示不可搜索，0表示可搜索
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -295,12 +295,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_AUTH . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['action' => 'get_experiencer'], true);
+        $r = Http::post($url, ['action' => 'get_experiencer'], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -325,12 +325,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_BIND_TESTER . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['wechatid' => $wechat_id], true);
+        $r = Http::post($url, ['wechatid' => $wechat_id], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -349,12 +349,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_UNBIND_TESTER . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, $data, true);
+        $r = Http::post($url, $data, true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -376,12 +376,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_TEMPLATE_DRAFT_LIST . self::$component_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -403,12 +403,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_TEMPLATE_LIST . self::$component_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -429,12 +429,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_ADD_TO_TEMPLATE . self::$component_access_token;
 
-        $r = Http::httpPost($url, ['draft_id' => $draft_id], true);
+        $r = Http::post($url, ['draft_id' => $draft_id], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -452,12 +452,12 @@ class Program
     public function deleteTemplate($template_id)
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_DELETE_TEMPLATE . self::$component_access_token;
-        $r = Http::httpPost($url, ['template_id' => $template_id], true);
+        $r = Http::post($url, ['template_id' => $template_id], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -490,12 +490,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_COMMIT . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, $data, true);
+        $r = Http::post($url, $data, true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -523,10 +523,10 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_QRCODE . $this->authorizer_access_token . '&path=' . urlencode($path);
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
         $r_json = json_decode($r, true);
-        if ($r && $r_json && isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if ($r && $r_json && isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r;
     }
@@ -552,12 +552,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_CATEGORY . $this->authorizer_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -578,12 +578,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_PAGE . $this->authorizer_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -632,12 +632,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_SUBMIT_AUDIT . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, $data, true);
+        $r = Http::post($url, $data, true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -665,12 +665,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_AUDIT_STATUS . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['auditid' => $audit_id], true);
+        $r = Http::post($url, ['auditid' => $audit_id], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -696,12 +696,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_GET_LATEST_AUDIT_STATUS . $this->authorizer_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -720,12 +720,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_RELEASE . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, '{}');
+        $r = Http::post($url, '{}');
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -749,12 +749,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_CHANGE_VISIT_STATUS . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['action' => $access_status], true);
+        $r = Http::post($url, ['action' => $access_status], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -775,12 +775,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_REVERT_CODE_RELEASE . $this->authorizer_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -801,12 +801,12 @@ class Program
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_UNDO_CODE_AUDIT . $this->authorizer_access_token;
 
-        $r = Http::httpGet($url);
+        $r = Http::get($url);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -828,12 +828,12 @@ class Program
     public function bindmember($wechatid)
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_BINDTEST . $this->authorizer_access_token;
-        $r = Http::httpPost($url, ['wechatid' => $wechatid], true);
+        $r = Http::post($url, ['wechatid' => $wechatid], true);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -855,12 +855,12 @@ class Program
     public function unbindmember($user_str)
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_UNBINDTEST . $this->authorizer_access_token;
-        $r = Http::httpPost($url, ['userstr' => $user_str], true);
+        $r = Http::post($url, ['userstr' => $user_str], true);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -882,12 +882,12 @@ class Program
     public function unbindmember_null($userstr)
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_UNBINDTEST . $this->authorizer_access_token;
-        $r = Http::httpPost($url, ['userstr' => $userstr], true);
+        $r = Http::post($url, ['userstr' => $userstr], true);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -909,12 +909,12 @@ class Program
     public function memberauthlist()
     {
         $url = ApiList::API_URL_PREFIX . ApiList::API_MEMBER_LISTMEMBER . $this->authorizer_access_token;
-        $r = Http::httpPost($url, ['action' => 'get_experiencer'], true);
+        $r = Http::post($url, ['action' => 'get_experiencer'], true);
 
-        if (!$r) throw new \Exception('get request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }

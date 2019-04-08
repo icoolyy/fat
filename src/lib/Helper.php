@@ -13,14 +13,16 @@ class Helper
      *
      * @return string
      */
-    public function jsonEncode($arr)
+    public static function jsonEncode($arr)
     {
         $parts = array();
         $is_list = false;
         //Find out if the given array is a numerical array
         $keys = array_keys($arr);
         $max_length = count($arr) - 1;
-        if (($keys [0] === 0) && ($keys [$max_length] === $max_length)) { //See if the first key is 0 and last key is length - 1
+
+        //See if the first key is 0 and last key is length - 1
+        if (($keys [0] === 0) && ($keys [$max_length] === $max_length)) {
             $is_list = true;
             for ($i = 0; $i < count($keys); $i++) { //See if each key correspondes to its position
                 if ($i != $keys [$i]) { //A key fails at position check.
@@ -53,8 +55,21 @@ class Helper
             }
         }
         $json = implode(',', $parts);
-        if ($is_list)
-            return '[' . $json . ']'; //Return numerical JSON
+
+        if ($is_list) return '[' . $json . ']'; //Return numerical JSON
+
         return '{' . $json . '}'; //Return associative JSON
+    }
+
+    /**
+     * 抛出异常
+     *
+     * @param string $msg 错误信息
+     * @param int $code 错误码
+     * @throws \Exception
+     */
+    public static function throwAbnormal($msg = 'request send fail !', $code = 40004)
+    {
+        throw new \Exception($msg, $code);
     }
 }

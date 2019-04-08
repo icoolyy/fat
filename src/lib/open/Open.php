@@ -74,12 +74,12 @@ class Open
     {
         $url = ApiList::API_URL_PREFIX . self::API_OPEN_CREATE . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['appid' => $auth_appid], true);
+        $r = Http::post($url, ['appid' => $auth_appid], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
@@ -118,12 +118,12 @@ class Open
     {
         $url = self::API_URL_PREFIX . self::API_OPEN_BIND . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['appid' => $auth_appid, 'open_appid' => $open_appid], true);
+        $r = Http::post($url, ['appid' => $auth_appid, 'open_appid' => $open_appid], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -160,12 +160,12 @@ class Open
     {
         $url = self::API_URL_PREFIX . self::API_OPEN_UNBIND . $this->authorizer_access_token;
 
-        $r = Http::httpPost($url, ['appid' => $auth_appid, 'open_appid' => $open_appid], true);
+        $r = Http::post($url, ['appid' => $auth_appid, 'open_appid' => $open_appid], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return true;
     }
@@ -200,12 +200,12 @@ class Open
     public function getOpen($auth_appid)
     {
         $url = self::API_URL_PREFIX . self::API_OPEN_GET . $this->authorizer_access_token;
-        $r = Http::httpPost($url, ['appid' => $auth_appid,], true);
+        $r = Http::post($url, ['appid' => $auth_appid,], true);
 
-        if (!$r) throw new \Exception('post request send fail !', $this->errCode);
+        if (!$r) Helper::throwAbnormal();
 
         $r_json = json_decode($r, true);
-        if (isset($r_json['errcode']) && $r_json['errcode']) throw new \Exception($r_json['errmsg'], $r_json['errcode']);
+        if (isset($r_json['errcode']) && $r_json['errcode']) Helper::throwAbnormal($r_json['errmsg'], $r_json['errcode']);
 
         return $r_json;
     }
