@@ -1,7 +1,8 @@
 {
     "name": "icoolyy/fat",
     "description": "This is wechat 3rd management platform composer!",
-    "type": "composer-plugin",
+    "keywords": ["wechat-3rd", "wechat", "3rd", "fat"],
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -9,8 +10,7 @@
             "email": "icoolyy@163.com"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.0"
     },
