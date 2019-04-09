@@ -7,6 +7,7 @@ namespace fat\program;
 
 use fat\http\Http;
 use fat\lib\ApiList;
+use fat\lib\Config;
 use fat\lib\Helper;
 
 class Program
@@ -24,22 +25,19 @@ class Program
     public $errMsg = "no access";
 
     /**
-     * WechatThird constructor.
-     *
-     * @param array $config
-     *
-     * @throws \Exception
+     * Program constructor.
+     * @param Config $config
      */
-    public function __construct(array $config = [])
+    public function __construct(Config $config)
     {
-        self::$third_app_id = $config['third_app_id'];
-        self::$third_app_secret = $config['third_app_secret'];
-        self::$third_token = $config['third_token'];
-        self::$third_encoding_aes_key = $config['third_encoding_aes_key'];
-        self::$component_access_token = $config['component_access_token'];
+        self::$third_app_id = $config->third_app_id;
+        self::$third_app_secret = $config->third_app_secret;
+        self::$third_token = $config->third_token;
+        self::$third_encoding_aes_key = $config->third_encoding_aes_key;
+        self::$component_access_token = $config->component_access_token;
 
-        $this->app_id = $config['app_id'];
-        $this->authorizer_access_token = $config['authorizer_access_token'];
+        $this->app_id = $config->app_id;
+        $this->authorizer_access_token = $config->authorizer_access_token;
     }
 
     /**
@@ -263,7 +261,7 @@ class Program
      */
     public function changeWxaSearchStatus($status)
     {
-        if (!in_array($status, [0, 1]))  Helper::throwAbnormal('status error', $this->errCode);
+        if (!in_array($status, [0, 1])) Helper::throwAbnormal('status error', $this->errCode);
 
         $url = ApiList::API_URL_PREFIX . ApiList::API_CHANGE_WXA_SEARCH_STATUS . $this->authorizer_access_token;
 
